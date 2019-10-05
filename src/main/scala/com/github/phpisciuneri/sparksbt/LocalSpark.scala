@@ -12,8 +12,12 @@ trait LocalSpark {
 object LocalSpark {
   val sparkSession: SparkSession = SparkSession
     .builder()
+    .appName("sparksbt")
+    .master("local[4]")
     .config("spark.executor.memory", "512mb")
     .config("spark.driver.memory", "1024mb")
-    .master("local[4]")
+    .config("spark.driver.host", "localhost")
     .getOrCreate()
+
+  sparkSession.sparkContext.setLogLevel("WARN")
 }
